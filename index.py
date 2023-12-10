@@ -3,6 +3,10 @@ import yfinance as yf
 
 app = Flask(__name__)
 
+@app.route('/api/home', methods=['GET'])
+def home():
+    return jsonify({'message': 'Welcome to Stock API'}), 200
+
 @app.route('/api/getDetails', methods=['GET'])
 def get_details():
     symbol = request.args.get('symbol')
@@ -40,4 +44,4 @@ def get_details():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
