@@ -3,7 +3,7 @@ import yfinance as yf
 
 app = Flask(__name__)
 
-@app.route('/api/home', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
     return jsonify({'message': 'Welcome to Stock API'}), 200
 
