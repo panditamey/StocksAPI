@@ -12,7 +12,7 @@ def get_details():
     symbol = request.args.get('symbol')
     exchange = ".NS" if request.args.get('exchange')=="NSE" else ".BO"
     time_period = request.args.get('time', 'max')
-    json = request.args.get('json', "false")
+    json_flag = request.args.get('json', "false")
     start = request.args.get('start', None)
     end = request.args.get('end', None)
 
@@ -29,7 +29,9 @@ def get_details():
                 data = stock.history(start=start)
         else:
             data = stock.history(period=time_period)
-        if(json=="true"):
+        if json_flag.lower() == "true":
+            # Convert date column to string format
+            data.index = data.index.strftime('%Y-%m-%d')
             return data.to_json(orient='index'), 200
         
         # Convert DataFrame to CSV
